@@ -1,13 +1,35 @@
 import Head from 'next/head';
 import { useState } from 'react';
+import styles from './index.module.css';
 
 export default function Home() {
   const [count, setCount] = useState(0);
   const [animalInput, setAnimalInput] = useState('');
-  const onSubmithandler = (e) => {
+  const [result, setResult] = useState();
+
+  const onSubmithandler = async (e) => {
     e.preventDefault();
-    setCount(count + 1);
-    setAnimalInput('');
+
+    try {
+      const response = await fetch('api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ animal: animalInput }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+
+      setCount(count + 1);
+      setAnimalInput('');
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
   };
 
   return (
@@ -16,10 +38,9 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>
-        <img src='/favicon.ico' alt='파비콘 이미지' />
+      <main className={styles.main}>
+        <img src='/favicon.ico' className={styles.icon} alt='파비콘 이미지' />
         <h3>Name My Pet</h3>
-        <p>You've used this app {count} times</p>
         <form onSubmit={onSubmithandler}>
           <input
             type='text'
@@ -33,6 +54,7 @@ export default function Home() {
           />
           <input type='submit' value='Generate names' />
         </form>
+        <div className={styles.result}></div>
       </main>
     </>
   );
