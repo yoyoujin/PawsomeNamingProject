@@ -3,7 +3,6 @@ import { useState } from 'react';
 import styles from './index.module.css';
 
 export default function Home() {
-  const [count, setCount] = useState(0);
   const [animalInput, setAnimalInput] = useState('');
   const [result, setResult] = useState();
 
@@ -26,7 +25,6 @@ export default function Home() {
 
       console.log(data);
       setResult(data.result);
-      setCount(count + 1);
       setAnimalInput('');
       console.log(result);
     } catch (error) {
