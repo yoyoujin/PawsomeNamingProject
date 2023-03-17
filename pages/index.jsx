@@ -24,8 +24,11 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
+      console.log(data);
+      setResult(data.result);
       setCount(count + 1);
       setAnimalInput('');
+      console.log(result);
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -54,7 +57,7 @@ export default function Home() {
           />
           <input type='submit' value='Generate names' />
         </form>
-        <div className={styles.result}></div>
+        <div className={styles.result}>{result}</div>
       </main>
     </>
   );
