@@ -49,7 +49,6 @@ export default function Home() {
             value={animalInput}
             onChange={(e) => {
               setAnimalInput(e.target.value);
-              console.log(animalInput);
             }}
             placeholder='Enter an animal'
           />
