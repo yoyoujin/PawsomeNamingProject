@@ -23,11 +23,11 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      console.log(data);
-      setResult(data.result);
+      setResult(data.result.split('\n').splice(2));
       setAnimalInput('');
       console.log(result);
     } catch (error) {
+      console.error(error);
       alert(error.message);
     }
   };
