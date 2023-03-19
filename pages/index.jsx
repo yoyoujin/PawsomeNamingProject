@@ -28,7 +28,6 @@ export default function Home() {
       setAnimalInput('');
       console.log(result);
     } catch (error) {
-      console.error(error);
       alert(error.message);
     }
   };
